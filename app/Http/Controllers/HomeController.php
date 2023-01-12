@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Blog::with('user')->where(['status' => 'Active'])->filterBlog()->orderBy('view', 'desc');
+        $data = Blog::with('user', 'comment')->where(['status' => 'Active'])->filterBlog()->orderBy('view', 'desc');
 
         return Inertia::render('Welcome', [
             'blogs' => $data->paginate(10),
@@ -35,7 +35,7 @@ class HomeController extends Controller
     public function show($id)
     {
         return Inertia::render('BlogDetail', [
-            'blogData' => Blog::with('user')->findOrFail($id)
+            'blogData' => Blog::with(['user', 'comment', 'comment.user'])->findOrFail($id)
         ]);
     }
 }
