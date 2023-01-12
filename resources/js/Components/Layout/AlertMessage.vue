@@ -1,11 +1,9 @@
 <script setup>
-
 const closeNotification = () => {
-    console.log(this.props);
     this.props.flash.message = ""
 }
-
 </script>
+
 <template>
     <div v-if="$page.props.flash.message" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
         <strong class="font-bold">{{ $page.props.flash.message }}</strong>

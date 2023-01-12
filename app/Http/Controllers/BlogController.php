@@ -89,7 +89,7 @@ class BlogController extends Controller
     {
         $blog->delete();
 
-        return Redirect::route('blog.index')->with('message', 'Data removed Sucessfully !');;
+        return Redirect::route('blog.index')->with('message', 'Data removed Sucessfully !');
     }
 
     /**

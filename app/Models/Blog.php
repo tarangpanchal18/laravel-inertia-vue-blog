@@ -71,4 +71,14 @@ class Blog extends Model
             return $query->where('blogs.title', 'like', '%'. $q .'%');
         }
     }
+
+    /**
+     * Defines the relationship with comment table
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
