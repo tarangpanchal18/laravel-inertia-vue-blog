@@ -61,5 +61,11 @@ RUN echo "file_uploads = On\n" \
          "max_execution_time = 1200\n" \
          > /usr/local/etc/php/conf.d/uploads.ini
 
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-RUN apt-get install -y nodejs
+# RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+# RUN apt-get install -y nodejs
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    npm
+RUN npm install npm@latest -g && \
+    npm install n -g && \
+    n latest

@@ -1,66 +1,53 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## About Application
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Simple Laravel Application with Vue.JS & Inertia.js. And have used tailwind css.
 
-## About Laravel
+Some of features are listed as below for this application
+- User can login/register with their credentials.
+- Dashboard For Logged in User with `Total Active Blog Count` & `Total InActive Blog Count` & Listing of latest blogs
+- A random quote Api for show user motivational quote on each refresh
+- My Blogs page where Writer/User can Add/Edit/Delete Post
+- Homepage Where All Other Users Can view blogs.
+- Blog View Counter(to check how many users seen/read blog)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Note : This is built on docker. so make sure Docker is installed in your system**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requirements
+| App | Version |
+| ------ | ------ |
+| Laravel Version | 9.19 |
+| Vue Version | 0.11 |
+| Tailwind Version | 3.2 |
+| Vite Version | 3.0 |
+| Docker Version | 20.10 |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Setup
+- First of all go to project directory and perform `docker-compose build`
+- `cp .env.example .env`
+- Now change `.env` file and db details
+- Run `docker-compose up -d --build`
+- Run `docker-compose exec app composer install`
+- Run `docker-compose exec app php artisan migrate`
+- Run `docker-compose exec app npm install`
+- Run `docker-compose exec app npm build` or Run `docker-compose exec app npm run dev`
+- Now Website can run on `http://localhost:8081/` And PhpMyAdmin Can run on `http://localhost:8085/`
+- If port is assigned you can change from `docker-compose.yml` file
+- That's it :+1:
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+If you dont have any idea how to set up the docker or docker is not installed in your system please go through this [link](https://www.digitalocean.com/community/tutorials/how-to-install-and-set-up-laravel-with-docker-compose-on-ubuntu-22-04). You can skip all steps if you dont have idea about docker and directly scroll to `Step 6 — Running the Application with Docker Compose`.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Thank you for considering contributing to the Laravel-inertia-vue-blog ! You can create PR for changes and bugs if you find so.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+*Note : Currently In Readme file I've mentioned Docker setup for only **Linux OS**. For Mac & Windows Looking forward for contributors to update Readme File.*
+Thanks in advanced !
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within This Project, please send an e-mail to Tarang Panchal via [tarang.webinfosolutions@gmail.com](mailto:tarang.webinfosolutions@gmail.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This is completely open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Do whatever you want with this app.

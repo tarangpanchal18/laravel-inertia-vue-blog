@@ -10,15 +10,15 @@ services:
     depends_on:
       - "database"
     ports:
-      - 8080:80
-      - 443:443
+      - 8081:80
+      - 444:444
 
   # Database
   database:
     image: mysql:8.0
     restart: unless-stopped
     ports:
-      - "3304:3304"
+      - "3305:3305"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: laravel
@@ -26,9 +26,9 @@ services:
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
       - ./docker/mysql/data:/var/lib/mysql
 
-  pma:
+  phpma:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin
+    container_name: pma
     restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -39,4 +39,4 @@ services:
     depends_on:
       - database
     ports:
-      - 8082:80
+      - 8085:80
