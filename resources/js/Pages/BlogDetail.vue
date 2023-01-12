@@ -5,6 +5,7 @@ import Navbar from "./Partials/NavbarAuthenticated.vue";
 import Breadcrumb from '@/Components/Layout/Breadcrumb.vue';
 import BasicLayout from '@/Components/Layout/ContainerLayout.vue';
 import { Inertia } from '@inertiajs/inertia';
+import CommentSection from '@/Components/Layout/CommentSection.vue';
 
 const props = defineProps({
     blogData: Object,
@@ -14,9 +15,7 @@ onMounted(() => {
     Inertia.post(route('blog.updateView', props.blogData.id))
 })
 </script>
-
 <template>
-
     <Head title="Welcome" />
     <Navbar />
     <Breadcrumb :routelink="['blog.index']" :text="['View Blog']"></Breadcrumb>
@@ -34,7 +33,8 @@ onMounted(() => {
                 <div class="w-full">
                     <div class="bg-white rounded py-2">
                         <div class="text-gray-800 text-base px-6">
-                            <div class="px-6 mb-2" v-html=blogData.description></div>
+                            <div v-html=blogData.description></div>
+                            <CommentSection :commentData="blogData.comment" :blogId="blogData.id"  />
                         </div>
                     </div>
                 </div>
