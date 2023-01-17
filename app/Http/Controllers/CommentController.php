@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-use Illuminate\Http\Request;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\Redirect;
 
 class CommentController extends Controller
@@ -31,23 +31,20 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param App\Http\Requests\CommentRequest
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $commentRequest)
     {
         $extraParams = [
             'user_id' => auth()->user()->id,
-            'visitor_ip' => $request->ip()
+            'visitor_ip' => $commentRequest->ip()
         ];
 
-        Comment::create(array_merge($request->validate([
-            'blog_id' => 'required|int',
-            'title' => 'required|min:3|max:50'
-        ]), $extraParams));
+        Comment::create(array_merge($commentRequest->validated(), $extraParams));
 
         return Redirect::route('blog.detail', [
-            'blogId' => $request->blog_id
+            'blogId' => $commentRequest->blog_id
         ]);
     }
 
@@ -76,13 +73,13 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CommentRequest
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(CommentRequest $commentRequest, Comment $comment)
     {
-        //
+        $comment->update($commentRequest->validated());
     }
 
     /**
@@ -93,6 +90,6 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
     }
 }
