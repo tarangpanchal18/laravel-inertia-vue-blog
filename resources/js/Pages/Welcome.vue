@@ -48,7 +48,7 @@ const filterData = () => {
                 <!-- Blog Listing -->
                 <div v-if="blogs.total">
                     <div class="flex" v-for="blog in blogs.data">
-                        <div class='flex items-center mb-4'>
+                        <div class='flex items-center mb-4 w-full'>
                             <div class="rounded-xl border p-5 shadow-md w-full bg-white">
                                 <Link :href="route('blog.detail', { 'id': blog.id })" class="mb-2 cursor-pointer">
                                     <div class="mb-3 text-xl font-bold">{{ blog.title }}</div>
