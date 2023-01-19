@@ -30,8 +30,12 @@ Some of features are listed as below for this application
 - Run `docker-compose exec app php artisan migrate`
 - Run `docker-compose exec app npm install`
 - Run `docker-compose exec app npm build` or Run `docker-compose exec app npm run dev`
+- Run `docker-compose exec app storage:link`
 - Now Website can run on `http://localhost:8081/` And PhpMyAdmin Can run on `http://localhost:8085/`
 - If port is assigned you can change from `docker-compose.yml` file
+
+## Setup for email functionality
+- Make sure you have run `docker-compose exec queue:work` to send emails on registration
 - That's it :+1:
 
 If you dont have any idea how to set up the docker or docker is not installed in your system please go through this [link](https://www.digitalocean.com/community/tutorials/how-to-install-and-set-up-laravel-with-docker-compose-on-ubuntu-22-04). You can skip all steps if you dont have idea about docker and directly scroll to `Step 6 — Running the Application with Docker Compose`.
