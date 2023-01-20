@@ -1,5 +1,6 @@
 <script setup>
 import Swal from "sweetalert2";
+import { Inertia } from "@inertiajs/inertia";
 import { Head } from '@inertiajs/inertia-vue3';
 import { Link } from '@inertiajs/inertia-vue3'
 import Button from "../../Components/Button.vue";
@@ -9,17 +10,19 @@ import NavbarVue from '../Partials/NavbarAuthenticated.vue';
 import LinkButton from "@/Components/Forms/LinkButton.vue";
 import AlertMessage from '@/Components/Layout/AlertMessage.vue';
 import Breadcrumb from "@/Components/Layout/Breadcrumb.vue";
-import { Inertia } from "@inertiajs/inertia";
+import ImportBlogModal from '@/Components/Layout/ImportBlogModal.vue';
+
+// Constants For Page Tables
+const tableTitle = "Blog";
+const tableHeads = ['#', 'Title', 'Created At', 'Status', 'Action']
+const buttonLink = route('blog.create')
+const showImport = true
 
 defineProps({
     blogList: Object,
     default: {}
 });
 
-const tableTitle = "Blog";
-const tableHeads = ['#', 'Title', 'Created At', 'Status', 'Action']
-const buttonLink = route('blog.create')
-const showImport = true
 const remove = (blogData) => {
   Swal.fire({
     title: "Are you sure?",
@@ -35,10 +38,6 @@ const remove = (blogData) => {
     }
   });
 };
-
-const processImport = (data) => {
-    console.log(data);
-}
 </script>
 
 <template>
@@ -56,19 +55,21 @@ const processImport = (data) => {
                             <div class="relative w-full px-4 max-w-full flex-grow flex-1">
                                 <h3 class="text-lg">{{ tableTitle }}
                                     <LinkButton v-if="buttonLink" class="border border-green-500 bg-green-500 text-white rounded-md px-3 py-1 mt-3 mr-3 transition duration-500 ease select-none hover:bg-green-700 focus:outline-none focus:shadow-outline mt-0 float-right" :href="buttonLink" :variant="'info'">Add {{tableTitle}}</LinkButton>
-                                    <button @click="importMethod(tableHeads)" v-if="showImport" class="border border-blue-400 bg-blue-400 text-white rounded-md px-3 py-1 mt-3 mr-3 transition duration-500 ease select-none hover:bg-blue-700 focus:outline-none focus:shadow-outline mt-0 float-right">Import {{ tableTitle }}</button>
+                                    <button data-toggle="modal" data-target="#import-user-modal" v-if="showImport" class="border border-blue-400 bg-blue-400 text-white rounded-md px-3 py-1 mt-3 mr-3 transition duration-500 ease select-none hover:bg-blue-700 focus:outline-none focus:shadow-outline mt-0 float-right">Import {{ tableTitle }}</button>
                                 </h3>
                             </div>
                         </div>
                     </div>
                     <div class="block w-full overflow-x-auto">
                         <table class="items-center bg-transparent w-full border-collapse">
+                            <!-- Table Heading -->
                             <thead>
                                 <tr>
                                     <th class="px-6 bg-slate-100 align-middle py-3 text-base text-center" v-for="th in tableHeads">{{ th }}</th>
                                 </tr>
                             </thead>
 
+                            <!-- Table Body -->
                             <tbody v-if="blogList.data.length!=0">
                                 <tr v-for="(blog, index) in blogList.data">
                                     <th class="px-6 bg-slate-100 align-middle border border-solid py-3 text-sm text-center">{{ index+1 }}</th>
@@ -101,13 +102,15 @@ const processImport = (data) => {
                                 </tr>
                             </tbody>
 
-
                         </table>
                     </div>
                 </div>
             </div>
             <Pagination :data="blogList" />
         </div>
+
+        <!-- Modal For Import -->
+        <ImportBlogModal ref="modal" />
     </BasicLayout>
 
 </template>
