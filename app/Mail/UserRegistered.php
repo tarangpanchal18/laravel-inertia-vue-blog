@@ -15,6 +15,11 @@ class UserRegistered extends Mailable
 {
     use Queueable, SerializesModels;
 
+    /**
+     * Subject for the email
+     *
+     * @var string
+     */
     public $subject;
 
     /**

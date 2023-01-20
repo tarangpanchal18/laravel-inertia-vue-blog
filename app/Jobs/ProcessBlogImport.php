@@ -41,7 +41,7 @@ class ProcessBlogImport implements ShouldQueue
      *
      * @var int
      */
-    public $backoff = 15;
+    public $backoff = 60;
 
     /**
      * The number of times the job may be attempted.
@@ -59,7 +59,7 @@ class ProcessBlogImport implements ShouldQueue
     {
         foreach ($this->unprocessedData as $data) {
             $importStatus = false;
-            $user = User::select('id', 'email')->findorFail($data->user_id)->first();
+            $user = User::select('id', 'name', 'email')->findorFail($data->user_id);
 
             DB::table('blog_import')
                 ->where('id', $data->id)
@@ -82,7 +82,10 @@ class ProcessBlogImport implements ShouldQueue
 
                 DB::table('blog_import')
                     ->where('id', $data->id)
-                    ->update(['exception' => $th->getMessage()]);
+                    ->update([
+                        'processed' => 'Error',
+                        'exception' => $th->getMessage()
+                    ]);
             }
 
             // Inform to the user for uploading status

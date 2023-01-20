@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('filepath');
             $table->dateTime('proccess_start_date')->nullable();
             $table->dateTime('proccess_end_date')->nullable();
-            $table->enum('processed', ['Yes', 'No'])->default('No');
+            $table->enum('processed', ['Yes', 'No', 'Error'])->default('No');
             $table->longText('exception')->nullable();
             $table->timestamps();
         });
