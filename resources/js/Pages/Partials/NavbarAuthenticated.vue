@@ -8,7 +8,6 @@ import { Link } from '@inertiajs/inertia-vue3';
             <Link class="text-2xl no-underline text-grey-darkest hover:text-blue-dark" :href="'/'">Vue Interia</Link>
             <Link v-if="$page.props.auth.user" :href="route('dashboard')"  class="ml-5 mr-1.5">Dashboard</Link>
             <Link v-if="$page.props.auth.user" :href="route('blog.index')" class="m-1.5">My Blogs</Link>
-            <Link v-if="$page.props.auth.user" :href="route('user.index')" class="m-1.5">All Users</Link>
         </div>
         <div>
             <Link v-if="!$page.props.auth.user" :href="route('login')" class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2">Log in</Link>

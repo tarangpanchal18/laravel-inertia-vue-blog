@@ -6,21 +6,13 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class UserRegistered extends Mailable
+class ImportStatus extends Mailable
 {
     use Queueable, SerializesModels;
-
-    /**
-     * Subject for the email
-     *
-     * @var string
-     */
-    public $subject;
 
     /**
      * The order instance.
@@ -30,16 +22,23 @@ class UserRegistered extends Mailable
     public $user;
 
     /**
+     * Defines the status of the import.
+     *
+     * @var App\Model\User
+     */
+    public $importStatus;
+
+    /**
      * Create a new message instance.
      * @param App\Model\User $user
-     * @param String $subject
+     * @param bool $importStatus
      *
      * @return void
      */
-    public function __construct(User $user, $subject = '')
+    public function __construct(User $user, $importStatus)
     {
         $this->user = $user;
-        $this->subject = ($subject) ? $subject : 'User Registration Successful';
+        $this->importStatus = ($importStatus) ? "Success" : "Failed";
     }
 
     /**
@@ -50,8 +49,7 @@ class UserRegistered extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: new Address(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME')),
-            subject: $this->subject,
+            subject: 'Your Import has been '. $this->importStatus,
         );
     }
 
@@ -63,7 +61,7 @@ class UserRegistered extends Mailable
     public function content()
     {
         return new Content(
-            view: 'email.user.register',
+            view: 'email.import_status',
         );
     }
 
