@@ -14,6 +14,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class ProcessBlogImport implements ShouldQueue
 {
@@ -90,6 +91,8 @@ class ProcessBlogImport implements ShouldQueue
 
             // Inform to the user for uploading status
             Mail::to($user->email)->send(new ImportStatus($user, $importStatus));
+
+            Storage::delete($data->filepath);
         }
 
     }
