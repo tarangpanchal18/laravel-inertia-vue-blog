@@ -52,7 +52,7 @@ const filterData = () => {
                             <div class="rounded-xl border p-5 shadow-md w-full bg-white">
                                 <Link :href="route('blog.detail', { 'id': blog.id })" class="mb-2 cursor-pointer">
                                     <div class="mb-3 text-xl font-bold">{{ blog.title }}</div>
-                                    <div class="text-sm text-neutral-600" v-html="blog.description"></div>
+                                    <div class="text-sm text-neutral-600" v-html="blog.description.substring(0,1200)"></div>
                                 </Link>
                                 <div class="flex w-full items-center justify-between border-b pb-3 mb-3">
                                     <div class="items-center space-x-3">

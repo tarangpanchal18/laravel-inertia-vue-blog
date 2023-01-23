@@ -29,6 +29,15 @@ class Blog extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'view' => 'integer',
+    ];
+
+    /**
      * Defines the replationship with User Table
      *
      * @return relationship
