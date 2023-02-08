@@ -73,8 +73,8 @@ class ProcessBlogImport implements ShouldQueue
                 ->where('id', $data->id)
                 ->update([
                     'processed' => 'Yes',
-                    'proccess_end_date' => date('Y-m-d h:i:s',
-                )]);
+                    'proccess_end_date' => date('Y-m-d h:i:s')
+                ]);
 
                 $importStatus = true;
             } catch (\Throwable $th) {

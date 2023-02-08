@@ -51,11 +51,11 @@ class BlogsImport implements ToModel, WithStartRow, WithChunkReading
                 'description' => $row[2],
                 'seo_keyword' => $row[3],
                 'seo_description' => $row[4],
-                'view' => $row[5],
-                'status' => $row[6],
+                'view' => 0,
+                'status' => $row[5],
             ]);
         } catch (\Throwable $th) {
-            abort(500, 'Could not inser to blog because of ' . $th->getMessage());
+            abort(500, 'Could not insert to blog because of ' . $th->getMessage());
         }
     }
 }

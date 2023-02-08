@@ -125,12 +125,14 @@ class BlogController extends Controller
 
         DB::table('blog_import')->insert([
             'user_id' => auth()->user()->id,
-            'filepath' => $path
+            'filepath' => $path,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
-        //Dispatching the event
         ProcessBlogImport::dispatch();
 
-        return Redirect::route('blog.index')->with('message', 'File Imported. You will receive an email once blogs been imported !');
+        return Redirect::route('blog.index')
+            ->with('message', 'File Imported. You will receive an email once blogs been imported !');
     }
 }
