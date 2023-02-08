@@ -29,6 +29,15 @@ class Blog extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'view' => 'integer',
+    ];
+
+    /**
      * Defines the replationship with User Table
      *
      * @return relationship
@@ -70,5 +79,15 @@ class Blog extends Model
         if ($q) {
             return $query->where('blogs.title', 'like', '%'. $q .'%');
         }
+    }
+
+    /**
+     * Defines the relationship with comment table
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

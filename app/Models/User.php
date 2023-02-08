@@ -45,10 +45,20 @@ class User extends Authenticatable
     /**
      * Defines the replationship with Blog Table
      *
-     * @return relationship
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function blog()
     {
         return $this->belongsTo(Blog::class);
+    }
+
+    /**
+     * Defines the relationship with comment table
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

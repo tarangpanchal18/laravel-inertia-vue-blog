@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Jobs\ProcessBlogImport;
 use App\Http\Requests\BlogRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 
 class BlogController extends Controller
@@ -76,7 +80,7 @@ class BlogController extends Controller
         $blog->update($blogRequest->validated());
 
         return Redirect::route('blog.index')
-            ->with('message', 'Data Updated Sucessfully !');;
+            ->with('message', 'Data Updated Sucessfully !');
     }
 
     /**
@@ -89,7 +93,7 @@ class BlogController extends Controller
     {
         $blog->delete();
 
-        return Redirect::route('blog.index')->with('message', 'Data removed Sucessfully !');;
+        return Redirect::route('blog.index')->with('message', 'Data removed Sucessfully !');
     }
 
     /**
@@ -101,5 +105,34 @@ class BlogController extends Controller
     public function updateBlogView($blogId) {
 
         Blog::findOrFail($blogId)->increment('view');
+    }
+
+    /**
+     * Update blog view count.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @return \Inertia\Inertia
+     */
+    public function import(Request $request)
+    {
+        $path = 'blog/csv/';
+        $fileName = 'blog_' . auth()->user()->id . '_' . time() . '.csv';
+        $request->validate([
+            'blog_csv' => 'required|mimes:csv',
+        ]);
+
+        $path = Storage::putFileAs($path, $request->file('blog_csv'), $fileName);
+
+        DB::table('blog_import')->insert([
+            'user_id' => auth()->user()->id,
+            'filepath' => $path,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        ProcessBlogImport::dispatch();
+
+        return Redirect::route('blog.index')
+            ->with('message', 'File Imported. You will receive an email once blogs been imported !');
     }
 }
