@@ -33,6 +33,7 @@ const processUpload = () => {
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select CSV With Blog Data</label>
                             <input type="file" name="blog_csv" @input="form.blog_csv = $event.target.files[0]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                            <small><a download target="_blank" :href="'/storage/examples/sample-blogs.csv'">Download Sample CSV</a></small>
                             <progress v-if="form.progress" :value="form.progress.percentage" max="100">
                             {{ form.progress.percentage }}%
                             </progress>
